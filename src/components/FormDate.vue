@@ -1,12 +1,12 @@
 <template>
   <div>
     <div>
-      <input type="text" :v-model="day" placeholder="DD">
-      <input type="text" :v-model="month" placeholder="MM">
-      <input type="text" :v-model="year" placeholder="YYYY">
-      <input type="text" :v-model="hour" placeholder="hh">
-      <input type="text" :v-model="minut" placeholder="mm">
-      <input type="text" :v-model="second" placeholder="ss">
+      <input type="text" v-model="days" placeholder="DD">
+      <input type="text" v-model="month" placeholder="MM">
+      <input type="text" v-model="year" placeholder="YYYY">
+      <input type="text" v-model="hour" placeholder="hh">
+      <input type="text" v-model="minute" placeholder="mm">
+      <input type="text" v-model="second" placeholder="ss">
     </div>
       
     <div>
@@ -22,11 +22,11 @@ export default {
   name: 'form-date',
   data() {
     return {
-      day: null,
+      days: null,
       month: null,
       year: null,
       hour: 0,
-      minut: 0,
+      minute: 0,
       second: 0,
       currDate: new Date()
     }
@@ -38,13 +38,16 @@ export default {
   },
   computed: {
     diffTime() {
+      return this.currDate - this.birthtime;
+    },
+    birthtime() {
       return new Date(
-        this.currDate.getFullYear() - this.year,
-        this.currDate.getMonth() - this.month,
-        this.currDate.getDate() - this.day,
-        this.currDate.getHours() - this.hour,
-        this.currDate.getMinutes() - this.minut,
-        this.currDate.getSeconds() - this.second,
+        this.year ? this.year : this.currDate.getFullYear(),
+        this.month ? this.month : this.currDate.getMonth(),
+        this.days ? this.days : this.currDate.getDate(),
+        this.hour ? this.hour : this.currDate.getHours(),
+        this.minute ? this.minute : this.currDate.getMinutes(),
+        this.second ? this.second : this.currDate.getSeconds(),
       );
     }
   }
