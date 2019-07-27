@@ -4,8 +4,14 @@ node_js:
   - "11"
   - "12"
 
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
 script:
-  - echo "Skipping tests..."
+  - yarn run lint
+  - yarn run build
 
 deploy:
   provider: pages
