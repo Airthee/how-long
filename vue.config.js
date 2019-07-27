@@ -1,1 +1,3 @@
-export const publicPath = 'how-old-are-you'; 
+module.exports = {
+    publicPath: 'how-old-are-you'
+} 
