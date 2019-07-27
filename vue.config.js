@@ -1,0 +1,1 @@
+export const publicPath = 'how-old-are-you'; 
