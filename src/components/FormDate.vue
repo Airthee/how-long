@@ -7,12 +7,17 @@
     </div>
 
     <div class="birth-form">
-      <input type="text" v-model="days" placeholder="DD" />
-      <input type="text" v-model="month" placeholder="MM" />
-      <input type="text" v-model="year" placeholder="YYYY" />
-      <input type="text" v-model="hour" placeholder="hh" />
-      <input type="text" v-model="minute" placeholder="mm" />
-      <input type="text" v-model="second" placeholder="ss" />
+      <input type="number" v-model="days" placeholder="DD" min="01" max="31" title="Day" />
+      <span>/</span>
+      <input type="number" v-model="month" placeholder="MM" min="01" max="12" title="Month" />
+      <span>/</span>
+      <input type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" title="Year" />
+      <span>@</span>
+      <input type="number" v-model="hour" placeholder="hh" min="00" max="23" title="Hour" />
+      <span>:</span>
+      <input type="number" v-model="minute" placeholder="mm" min="00" max="59" title="Minute" />
+      <span>:</span>
+      <input type="number" v-model="second" placeholder="ss" min="00" max="59" title="Second" />
     </div>
 
     <div class="diff-time">
@@ -137,6 +142,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .current-time {
+    width: 150px;
+    margin: auto;
+    border: 1px solid;
+    padding: 10px 0;
+    margin-bottom: 50px;
+  }
+
+  .birth-form {
+    margin-bottom: 50px;
+    *:not(:last-child) {
+      margin-right: 10px;
+    }
+    input {
+      text-align: center;
+      width: 4em;
+    }
+  }
+
   .diff-time {
     .diff-time--text {
       .diff-time--text-result {
