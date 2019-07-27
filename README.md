@@ -1,3 +1,5 @@
+![Travis (.org) branch](https://img.shields.io/travis/Airthee/how-old-are-you/master?style=flat-square)
+
 # whats-my-age
 
 ## Project setup
