@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Airthee/how-old-are-you.svg?branch=master)](https://travis-ci.org/Airthee/how-old-are-you)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/90c62461-21b8-4368-81d9-324bace85f39/deploy-status)](https://app.netlify.com/sites/how-old-are-you/deploys)
 
-# whats-my-age
+# How old are you ?
 
 ## Project setup
 ```
