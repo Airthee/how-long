@@ -1,4 +1,4 @@
-![Travis (.org) branch](https://img.shields.io/travis/Airthee/how-old-are-you/master?style=flat-square)
+[![Build Status](https://travis-ci.org/Airthee/how-old-are-you.svg?branch=master)](https://travis-ci.org/Airthee/how-old-are-you)
 
 # whats-my-age
 
