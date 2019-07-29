@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: 'how-old-are-you'
+    // publicPath: 'how-old-are-you'
 } 
