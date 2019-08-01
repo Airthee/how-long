@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <h1>How old are you ?</h1>
-    <p>Just type your birthdate and see your age grow instantly !</p>
+    <h1>How long, what the hell is this ?</h1>
+    <p>
+	You regularly forget your age or the age of a loved one ?
+	Need to know how long you have been with your partner ?
+	Add this website to your favourites and don't think anymore !
+    	Just pick a date and see the difference grow instantly !
+    </p>
     <form-date/>
   </div>
 </template>
