@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <h1>How long, what the hell is this ?</h1>
-    <p>
-	You regularly forget your age or the age of a loved one ?
-	Need to know how long you have been with your partner ?
-	Add this website to your favourites and don't think anymore !
-    	Just pick a date and see the difference grow instantly !
-    </p>
+    <div>
+        <div>You regularly forget your age or the age of a loved one ?</div>
+        <div>Need to know how long you have been with your partner ?</div>
+        <div>Add this website to your favourites and don't think anymore !</div>
+        <div>Just pick a date and see the difference grow instantly !</div>
+    </div>
     <form-date/>
   </div>
 </template>
