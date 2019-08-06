@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="main-content">
+      <img class="home-logo" src="/logo.svg">
       <h1>{{ $t('home.description.title') }}</h1>
       <p v-html="$t('home.description.text')"></p>
       <form-date/>
@@ -56,6 +57,10 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       margin: auto;
+
+      .home-logo {
+        width: 20%;
+      }
     }
 
     footer {
