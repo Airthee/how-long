@@ -7,29 +7,29 @@
     </div>
 
     <div class="birth-form">
-      <input type="number" v-model="days" placeholder="DD" min="01" max="31" title="Day" />
+      <input type="number" v-model="days" placeholder="DD" min="01" max="31" :title="$t('formDate.inputTitles.day')" />
       <span>/</span>
-      <input type="number" v-model="month" placeholder="MM" min="01" max="12" title="Month" />
+      <input type="number" v-model="month" placeholder="MM" min="01" max="12" :title="$t('formDate.inputTitles.month')" />
       <span>/</span>
-      <input type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" title="Year" />
+      <input type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" :title="$t('formDate.inputTitles.year')" />
       <span>@</span>
-      <input type="number" v-model="hour" placeholder="hh" min="00" max="23" title="Hour" />
+      <input type="number" v-model="hour" placeholder="hh" min="00" max="23" :title="$t('formDate.inputTitles.hour')" />
       <span>:</span>
-      <input type="number" v-model="minute" placeholder="mm" min="00" max="59" title="Minute" />
+      <input type="number" v-model="minute" placeholder="mm" min="00" max="59" :title="$t('formDate.inputTitles.minute')" />
       <span>:</span>
-      <input type="number" v-model="second" placeholder="ss" min="00" max="59" title="Second" />
+      <input type="number" v-model="second" placeholder="ss" min="00" max="59" :title="$t('formDate.inputTitles.second')" />
     </div>
 
     <div class="diff-time">
       <div class="diff-time--text">
-        Vous avez 
+        {{ $t('formDate.elapsedTime') }} : 
         <span class="diff-time--text-result">
-          <span v-if="diffTime.years > 0">{{ `${diffTime.years} ${diffTime.years > 1 ? 'ans' : 'an'}` }}</span>
-          <span v-if="diffTime.months > 0">{{ diffTime.months }} mois</span>
-          <span v-if="diffTime.days > 0">{{ `${diffTime.days} ${diffTime.days > 1 ? 'jours' : 'jour'}` }}</span>
-          <span v-if="diffTime.hours > 0">{{ `${diffTime.hours} ${diffTime.hours > 1 ? 'heures' : 'heure'}` }}</span>
-          <span v-if="diffTime.minutes > 0">{{ `${diffTime.minutes} ${diffTime.minutes > 1 ? 'minutes' : 'minute'}` }}</span>
-          <span v-if="diffTime.seconds > 0">{{ `${diffTime.seconds} ${diffTime.seconds > 1 ? 'secondes' : 'seconde'}` }}</span>
+          <span v-if="diffTime.years > 0">{{ $tc('formDate.year', diffTime.years) }}</span>
+          <span v-if="diffTime.months > 0">{{ $tc('formDate.month', diffTime.months) }}</span>
+          <span v-if="diffTime.days > 0">{{ $tc('formDate.day', diffTime.days) }}</span>
+          <span v-if="diffTime.hours > 0">{{ $tc('formDate.hour', diffTime.hours) }}</span>
+          <span v-if="diffTime.minutes > 0">{{ $tc('formDate.minute', diffTime.minutes) }}</span>
+          <span v-if="diffTime.seconds > 0">{{ $tc('formDate.second', diffTime.seconds) }}</span>
         </span>.
       </div>
     </div>
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       days: this.zeroPad(localStorage.days || initDate.getDate()),
-      month: this.zeroPad(localStorage.month || initDate.getMonth() + 1),
+      month: this.zeroPad(localStorage.month || (initDate.getMonth() + 1)),
       year: localStorage.year || initDate.getFullYear(),
       hour: this.zeroPad(localStorage.hour || initDate.getHours()),
       minute: this.zeroPad(localStorage.minute || initDate.getMinutes()),
@@ -66,6 +66,15 @@ export default {
     _.forEach(document.querySelectorAll('.birth-form input'), (node) => {
       node.addEventListener('change', () => this.persistDataToLocalStorage());
     });
+
+    // Create style
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .diff-time .diff-time--text .diff-time--text-result span:last-child::before {
+        content: ' ${this.$t('words.and')} '
+      }
+    `;
+    document.querySelector('head').insertAdjacentElement('beforeend', style);
   },
   computed: {
     diffTime() {
@@ -181,9 +190,6 @@ export default {
   .diff-time {
     .diff-time--text {
       .diff-time--text-result {
-        span:last-child:not(:first-child)::before {
-          content: ' et ';
-        }
         span:nth-child(n+2):not(:last-child)::before {
           content: ', ';
         }
