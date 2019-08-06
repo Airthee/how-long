@@ -123,12 +123,12 @@ export default {
     },
     birthtime() {
       return new Date(
-        (this.year !== '') ? this.year : this.currDate.getFullYear(),
-        (this.month !== '') ? this.month-1 : this.currDate.getMonth(),
-        (this.days !== '') ? this.days : this.currDate.getDate(),
-        (this.hour !== '') ? this.hour : this.currDate.getHours(),
-        (this.minute !== '') ? this.minute : this.currDate.getMinutes(),
-        (this.second !== '') ? this.second : this.currDate.getSeconds()
+        this.year || this.currDate.getFullYear(),
+        this.month-1 || this.currDate.getMonth(),
+        this.days || this.currDate.getDate(),
+        this.hour || this.currDate.getHours(),
+        this.minute || this.currDate.getMinutes(),
+        this.second || this.currDate.getSeconds()
       );
     }
   },
