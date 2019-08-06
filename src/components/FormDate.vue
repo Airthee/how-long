@@ -38,6 +38,7 @@
 
 <script>
 import { setInterval } from "timers";
+import _ from 'lodash';
 
 let initDate = new Date();
 
@@ -45,19 +46,26 @@ export default {
   name: "form-date",
   data() {
     return {
-      days: this.zeroPad(initDate.getDate()),
-      month: this.zeroPad(initDate.getMonth() + 1),
-      year: initDate.getFullYear(),
-      hour: this.zeroPad(initDate.getHours()),
-      minute: this.zeroPad(initDate.getMinutes()),
-      second: this.zeroPad(initDate.getSeconds()),
+      days: this.zeroPad(localStorage.days || initDate.getDate()),
+      month: this.zeroPad(localStorage.month || initDate.getMonth() + 1),
+      year: localStorage.year || initDate.getFullYear(),
+      hour: this.zeroPad(localStorage.hour || initDate.getHours()),
+      minute: this.zeroPad(localStorage.minute || initDate.getMinutes()),
+      second: this.zeroPad(localStorage.second || initDate.getSeconds()),
       currDate: new Date()
     };
   },
   mounted() {
+    // Update currDate every seconds
     setInterval(() => {
       this.currDate = new Date();
     }, 1000);
+
+    // On input change
+    // Persist data
+    _.forEach(document.querySelectorAll('.birth-form input'), (node) => {
+      node.addEventListener('change', () => this.persistDataToLocalStorage());
+    });
   },
   computed: {
     diffTime() {
@@ -136,7 +144,16 @@ export default {
     },
     zeroPad(number, pad = 2) {
       return number.toString().padStart(pad, '0');
-    }
+    },
+    persistDataToLocalStorage() {
+      // Persist date to localstorage
+      localStorage.days = this.days;
+      localStorage.month = this.month;
+      localStorage.year = this.year;
+      localStorage.hour = this.hour;
+      localStorage.minute = this.minute;
+      localStorage.second = this.second;
+    },
   }
 };
 </script>
