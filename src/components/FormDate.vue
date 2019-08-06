@@ -70,7 +70,7 @@ export default {
     // Create style
     const style = document.createElement('style');
     style.innerHTML = `
-      .diff-time .diff-time--text .diff-time--text-result span:last-child::before {
+      .diff-time .diff-time--text .diff-time--text-result span:last-child:not(:first-child)::before {
         content: ' ${this.$t('words.and')} '
       }
     `;
