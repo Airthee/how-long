@@ -78,49 +78,46 @@ export default {
         seconds: 0
       };
 
-      // Years
-      returnDiff.years = this.currDate.getFullYear() - this.birthtime.getFullYear();
-      if (this.birthtime.getMonth() > this.currDate.getMonth())
-        returnDiff.years--;
-      if (returnDiff.years < 0)
-        returnDiff.years = 0;
-
-      // Months
-      returnDiff.months = this.currDate.getMonth() - this.birthtime.getMonth();
-      if (this.birthtime.getDate() > this.currDate.getDate()) {
-        returnDiff.months--
+      // Seconds
+      returnDiff.seconds += this.currDate.getSeconds() - this.birthtime.getSeconds();
+      if (returnDiff.seconds < 0) {
+        returnDiff.seconds += 60;
+        returnDiff.minutes--;
       }
-      if (returnDiff.months < 0)
-        returnDiff.months += 12;
 
-      // Days
-      returnDiff.days = this.currDate.getDate() - this.birthtime.getDate();
-      if (this.birthtime.getHours() > this.currDate.getHours()) {
-        returnDiff.days--
+      // Minutes
+      returnDiff.minutes += this.currDate.getMinutes() - this.birthtime.getMinutes();
+      if (returnDiff.minutes < 0) {
+        returnDiff.minutes += 60;
+        returnDiff.hours--;
       }
-      if (returnDiff.days < 0)
-        returnDiff.days += 31;
 
       // Hours
-      returnDiff.hours = this.currDate.getHours() - this.birthtime.getHours();
-      if (this.birthtime.getMinutes() > this.currDate.getMinutes()) {
-        returnDiff.hours--
-      }
-      if (returnDiff.hours < 0)
+      returnDiff.hours += this.currDate.getHours() - this.birthtime.getHours();
+      if (returnDiff.hours < 0) {
         returnDiff.hours += 24;
-
-      // Minutes
-      returnDiff.minutes = this.currDate.getMinutes() - this.birthtime.getMinutes();
-      if (this.birthtime.getSeconds() > this.currDate.getSeconds()) {
-        returnDiff.minutes--
+        returnDiff.days--;
       }
-      if (returnDiff.minutes < 0)
-        returnDiff.minutes += 60;
 
-      // Minutes
-      returnDiff.seconds = this.currDate.getSeconds() - this.birthtime.getSeconds();
-      if (returnDiff.seconds < 0)
-        returnDiff.seconds += 60;
+      // Days
+      returnDiff.days += this.currDate.getDate() - this.birthtime.getDate();
+      if (returnDiff.days < 0) {
+        returnDiff.days += 31;
+        returnDiff.months--;
+      }
+
+      // Months
+      returnDiff.months += this.currDate.getMonth() - this.birthtime.getMonth();
+      if (returnDiff.months < 0) {
+        returnDiff.months += 12;
+        returnDiff.years--;
+      }
+
+      // Years
+      returnDiff.years += this.currDate.getFullYear() - this.birthtime.getFullYear();
+      if (returnDiff.years < 0) {
+        returnDiff.years = 0;
+      }
 
       return returnDiff;
     },
