@@ -1,20 +1,16 @@
 <template>
   <div id="app">
     <div class="main-content">
-      <h1>How long, what the hell is this ?</h1>
-      <p>
-          You regularly forget your age or the age of a loved one ?<br>
-          Need to know how long you have been with your partner ?<br>
-          Add this website to your favourites and don't think anymore !<br>
-          Just pick a date and see the difference grow instantly !<br>
-      </p>
+      <h1>{{ $t('home.description.title') }}</h1>
+      <p v-html="$t('home.description.text')"></p>
       <form-date/>
     </div>
     <footer>
+      <language-select/>
       <div class="github-links">
         <span class="github-link">
           <a href="http://github.com/Airthee/how-long" target="_blank">
-            <img height="40px" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" title="Access to the Github repository">
+            <img height="40px" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
           </a>
         </span>
       </div>
@@ -23,12 +19,14 @@
 </template>
 
 <script>
-import FormDate from './components/FormDate.vue'
+import FormDate from './components/FormDate.vue';
+import LanguageSelect from './components/LanguageSelect.vue';
 
 export default {
   name: 'app',
   components: {
-    FormDate
+    FormDate,
+    LanguageSelect
   }
 }
 </script>
