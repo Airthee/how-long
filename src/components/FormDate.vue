@@ -7,17 +7,17 @@
     </div>
 
     <div class="birth-form">
-      <input type="number" v-model="days" placeholder="DD" min="01" max="31" :title="$t('formDate.inputTitles.day')" />
+      <input class="input is-small" type="number" v-model="days" placeholder="DD" min="01" max="31" :title="$t('formDate.inputTitles.day')" />
       <span>/</span>
-      <input type="number" v-model="month" placeholder="MM" min="01" max="12" :title="$t('formDate.inputTitles.month')" />
+      <input class="input is-small" type="number" v-model="month" placeholder="MM" min="01" max="12" :title="$t('formDate.inputTitles.month')" />
       <span>/</span>
-      <input type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" :title="$t('formDate.inputTitles.year')" />
+      <input class="input is-small" type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" :title="$t('formDate.inputTitles.year')" />
       <span>@</span>
-      <input type="number" v-model="hour" placeholder="hh" min="00" max="23" :title="$t('formDate.inputTitles.hour')" />
+      <input class="input is-small" type="number" v-model="hour" placeholder="hh" min="00" max="23" :title="$t('formDate.inputTitles.hour')" />
       <span>:</span>
-      <input type="number" v-model="minute" placeholder="mm" min="00" max="59" :title="$t('formDate.inputTitles.minute')" />
+      <input class="input is-small" type="number" v-model="minute" placeholder="mm" min="00" max="59" :title="$t('formDate.inputTitles.minute')" />
       <span>:</span>
-      <input type="number" v-model="second" placeholder="ss" min="00" max="59" :title="$t('formDate.inputTitles.second')" />
+      <input class="input is-small" type="number" v-model="second" placeholder="ss" min="00" max="59" :title="$t('formDate.inputTitles.second')" />
     </div>
 
     <div class="diff-time">
