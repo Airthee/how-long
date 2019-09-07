@@ -1,20 +1,22 @@
 <template>
-  <div id="app">
-    <div class="main-content">
-      <img class="home-logo" src="/logo.svg">
-      <h1>{{ $t('home.description.title') }}</h1>
-      <p v-html="$t('home.description.text')"></p>
-      <form-date/>
-    </div>
-    <footer>
-      <language-select/>
-      <div class="github-links">
-        <span class="github-link">
-          <a href="http://github.com/Airthee/how-long" target="_blank">
-            <img height="40px" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
-          </a>
-        </span>
+  <div id="app" class="has-text-centered">
+    <section class="section">
+      <div class="container">
+        <div class="content">
+          <img class="home-logo" src="/logo.svg">
+          <h1>{{ $t('home.description.title') }}</h1>
+          <p v-html="$t('home.description.text')"></p>
+          <form-date/>
+        </div>
       </div>
+    </section>
+    <footer class="footer">
+      <language-select/>
+      <span class="footer-link">
+        <a href="http://github.com/Airthee/how-long" target="_blank">
+          <img class="image is-32x32" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
+        </a>
+      </span>
     </footer>
   </div>
 </template>
@@ -33,46 +35,38 @@ export default {
 </script>
 
 <style lang="scss">
+  // Import Bulma's core
+  @import "~bulma/sass/utilities/_all";
+
+  // Customize colors
+  $footer-background-color: #00000038;
+  $main-text-color: #cfcfcf;
+  $content-heading-color: $main-text-color;
+
   body {
     background-color: #2b2b2b;
-    margin: 0;
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
 
     #app {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-align: center;
-      color: #cfcfcf;
-      height: 100%;
-      width: 100%;
-    }
+      color: $main-text-color;
 
-    .main-content {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin: auto;
-
-      .home-logo {
-        width: 20%;
+      section {
+        min-height: 100vh;
       }
     }
 
     footer {
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
-      background-color: #00000038;
-      color: white;
-
-      .github-links:hover {
-        opacity: 0.3;
+      .footer-link {
+        img {
+          display: inline-block;
+        }
       }
     }
   }
+
+  // Import Bulma and Buefy styles
+  @import "~bulma";
+  @import "~buefy/src/scss/buefy";
 </style>

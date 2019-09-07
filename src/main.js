@@ -2,9 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueI18n from 'vue-i18n';
 import i18nTranslations from './i18n-translations';
+import Buefy from 'buefy';
 
 // Use I18N
 Vue.use(VueI18n);
+Vue.use(Buefy);
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
