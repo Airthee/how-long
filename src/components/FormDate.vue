@@ -6,18 +6,14 @@
       <div class="current-time--time">{{ formattedTime(currDate) }}</div>
     </div>
 
-    <div class="birth-form">
-      <input class="input is-small" type="number" v-model="days" placeholder="DD" min="01" max="31" :title="$t('formDate.inputTitles.day')" />
-      <span>/</span>
-      <input class="input is-small" type="number" v-model="month" placeholder="MM" min="01" max="12" :title="$t('formDate.inputTitles.month')" />
-      <span>/</span>
-      <input class="input is-small" type="number" v-model="year" placeholder="YYYY" min="1900" :max="currDate.getFullYear()" :title="$t('formDate.inputTitles.year')" />
-      <span>@</span>
-      <input class="input is-small" type="number" v-model="hour" placeholder="hh" min="00" max="23" :title="$t('formDate.inputTitles.hour')" />
-      <span>:</span>
-      <input class="input is-small" type="number" v-model="minute" placeholder="mm" min="00" max="59" :title="$t('formDate.inputTitles.minute')" />
-      <span>:</span>
-      <input class="input is-small" type="number" v-model="second" placeholder="ss" min="00" max="59" :title="$t('formDate.inputTitles.second')" />
+    <div class="date-form" v-on:confirm="persistDataToLocalStorage">
+      <datetime 
+        input-class="input-datetime"
+        v-model="inputDateTimeValue" 
+        type="datetime" 
+        :auto="true" 
+        :flow="['year', 'date', 'time']" 
+      ></datetime>
     </div>
 
     <div class="diff-time">
@@ -38,7 +34,6 @@
 
 <script>
 import { setInterval } from "timers";
-import _ from 'lodash';
 
 let initDate = new Date();
 
@@ -46,26 +41,27 @@ export default {
   name: "form-date",
   data() {
     return {
-      days: this.zeroPad(localStorage.days || initDate.getDate()),
-      month: this.zeroPad(localStorage.month || (initDate.getMonth() + 1)),
-      year: localStorage.year || initDate.getFullYear(),
-      hour: this.zeroPad(localStorage.hour || initDate.getHours()),
-      minute: this.zeroPad(localStorage.minute || initDate.getMinutes()),
-      second: this.zeroPad(localStorage.second || initDate.getSeconds()),
-      currDate: new Date()
+      inputDateTimeValue: null,
+      currDate: new Date(),
     };
+  },
+  watch: {
+    inputDateTimeValue(newValue, oldValue) {
+      if (oldValue !== null) {
+        this.persistDataToLocalStorage();
+      }
+    }
+  },
+  created() {
+    // Affect value for datetime picker
+    // Retrive from localstorage or take current date
+    this.inputDateTimeValue = localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : (new Date()).toISOString();
   },
   mounted() {
     // Update currDate every seconds
     setInterval(() => {
       this.currDate = new Date();
     }, 1000);
-
-    // On input change
-    // Persist data
-    _.forEach(document.querySelectorAll('.birth-form input'), (node) => {
-      node.addEventListener('change', () => this.persistDataToLocalStorage());
-    });
 
     // Create style
     const style = document.createElement('style');
@@ -78,7 +74,7 @@ export default {
   },
   computed: {
     diffTime() {
-      let returnDiff = {
+      const returnDiff = {
         years: 0,
         months: 0,
         days: 0,
@@ -87,59 +83,59 @@ export default {
         seconds: 0
       };
 
+      const inputDateTime = new Date(this.inputDateTimeValue);
+      const selectedDate = new Date(
+        inputDateTime.getFullYear() || initDate.getFullYear(),
+        inputDateTime.getMonth() || initDate.getMonth(),
+        inputDateTime.getDate() || initDate.getDate(),
+        inputDateTime.getHours() || initDate.getHours(),
+        inputDateTime.getMinutes() || initDate.getMinutes(),
+        inputDateTime.getSeconds() || initDate.getSeconds(),
+      );
+
       // Seconds
-      returnDiff.seconds += this.currDate.getSeconds() - this.birthtime.getSeconds();
+      returnDiff.seconds += this.currDate.getSeconds() - selectedDate.getSeconds();
       if (returnDiff.seconds < 0) {
         returnDiff.seconds += 60;
         returnDiff.minutes--;
       }
 
       // Minutes
-      returnDiff.minutes += this.currDate.getMinutes() - this.birthtime.getMinutes();
+      returnDiff.minutes += this.currDate.getMinutes() - selectedDate.getMinutes();
       if (returnDiff.minutes < 0) {
         returnDiff.minutes += 60;
         returnDiff.hours--;
       }
 
       // Hours
-      returnDiff.hours += this.currDate.getHours() - this.birthtime.getHours();
+      returnDiff.hours += this.currDate.getHours() - selectedDate.getHours();
       if (returnDiff.hours < 0) {
         returnDiff.hours += 24;
         returnDiff.days--;
       }
 
       // Days
-      returnDiff.days += this.currDate.getDate() - this.birthtime.getDate();
+      returnDiff.days += this.currDate.getDate() - selectedDate.getDate();
       if (returnDiff.days < 0) {
         returnDiff.days += 31;
         returnDiff.months--;
       }
 
       // Months
-      returnDiff.months += this.currDate.getMonth() - this.birthtime.getMonth();
+      returnDiff.months += this.currDate.getMonth() - selectedDate.getMonth();
       if (returnDiff.months < 0) {
         returnDiff.months += 12;
         returnDiff.years--;
       }
 
       // Years
-      returnDiff.years += this.currDate.getFullYear() - this.birthtime.getFullYear();
+      returnDiff.years += this.currDate.getFullYear() - selectedDate.getFullYear();
       if (returnDiff.years < 0) {
         returnDiff.years = 0;
       }
 
       return returnDiff;
     },
-    birthtime() {
-      return new Date(
-        this.year || this.currDate.getFullYear(),
-        this.month-1 || this.currDate.getMonth(),
-        this.days || this.currDate.getDate(),
-        this.hour || this.currDate.getHours(),
-        this.minute || this.currDate.getMinutes(),
-        this.second || this.currDate.getSeconds()
-      );
-    }
   },
   methods: {
     formattedDate(date) {
@@ -153,12 +149,12 @@ export default {
     },
     persistDataToLocalStorage() {
       // Persist date to localstorage
-      localStorage.days = this.days;
-      localStorage.month = this.month;
-      localStorage.year = this.year;
-      localStorage.hour = this.hour;
-      localStorage.minute = this.minute;
-      localStorage.second = this.second;
+      if (this.inputDateTimeValue) {
+        localStorage.setItem('selectedDateTime', JSON.stringify(this.inputDateTimeValue));
+      }
+      else {
+        localStorage.removeItem('selectedDateTime');
+      }
     },
   }
 };
@@ -173,7 +169,7 @@ export default {
     margin-bottom: 50px;
   }
 
-  .birth-form {
+  .date-form {
     margin-bottom: 50px;
     *:not(:last-child) {
       margin-right: 10px;
