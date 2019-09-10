@@ -42,6 +42,7 @@ export default {
   $footer-background-color: #00000038;
   $main-text-color: #cfcfcf;
   $content-heading-color: $main-text-color;
+  $footer-padding: 1rem;
 
   body {
     background-color: #2b2b2b;
