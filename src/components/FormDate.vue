@@ -46,8 +46,10 @@ export default {
     };
   },
   watch: {
-    inputDateTimeValue() {
-      this.persistDataToLocalStorage();
+    inputDateTimeValue(newValue, oldValue) {
+      if (oldValue !== null) {
+        this.persistDataToLocalStorage();
+      }
     }
   },
   created() {
