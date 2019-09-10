@@ -50,6 +50,11 @@ export default {
       this.persistDataToLocalStorage();
     }
   },
+  created() {
+    // Affect value for datetime picker
+    // Retrive from localstorage or take current date
+    this.inputDateTimeValue = localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : (new Date()).toISOString();
+  },
   mounted() {
     // Update currDate every seconds
     setInterval(() => {
@@ -64,10 +69,6 @@ export default {
       }
     `;
     document.querySelector('head').insertAdjacentElement('beforeend', style);
-
-    // Affect value for datetime picker
-    // Retrive from localstorage or take current date
-    this.inputDateTimeValue = localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : Date().toString();
   },
   computed: {
     diffTime() {
