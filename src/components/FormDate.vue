@@ -35,6 +35,8 @@
 <script>
 import { setInterval } from "timers";
 
+let initDate = new Date();
+
 export default {
   name: "form-date",
   data() {
@@ -80,12 +82,12 @@ export default {
 
       const inputDateTime = new Date(this.inputDateTimeValue);
       const selectedDate = new Date(
-        inputDateTime.getFullYear() || this.currDate.getFullYear(),
-        inputDateTime.getMonth() || this.currDate.getMonth(),
-        inputDateTime.getDate() || this.currDate.getDate(),
-        inputDateTime.getHours() || this.currDate.getHours(),
-        inputDateTime.getMinutes() || this.currDate.getMinutes(),
-        inputDateTime.getSeconds() || this.currDate.getSeconds(),
+        inputDateTime.getFullYear() || initDate.getFullYear(),
+        inputDateTime.getMonth() || initDate.getMonth(),
+        inputDateTime.getDate() || initDate.getDate(),
+        inputDateTime.getHours() || initDate.getHours(),
+        inputDateTime.getMinutes() || initDate.getMinutes(),
+        inputDateTime.getSeconds() || initDate.getSeconds(),
       );
 
       // Seconds
