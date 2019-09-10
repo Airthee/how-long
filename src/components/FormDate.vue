@@ -34,11 +34,6 @@
 
 <script>
 import { setInterval } from "timers";
-import { Settings } from 'luxon'
-import i18nTranslations from '../i18n-translations';
-import _ from 'lodash';
-
-let initDate = new Date();
 
 export default {
   name: "form-date",
@@ -49,7 +44,7 @@ export default {
     };
   },
   watch: {
-    inputDateTimeValue(newValue, oldValue) {
+    inputDateTimeValue() {
       this.persistDataToLocalStorage();
     }
   },
