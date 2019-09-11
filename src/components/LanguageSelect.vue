@@ -2,7 +2,7 @@
   <div>
     <div class="control is-small has-icons-left select">
       <div class="select">
-        <select>
+        <select v-model="selected">
           <option 
             v-for="option in options" :key="option.value" 
             :value="option.value" 
