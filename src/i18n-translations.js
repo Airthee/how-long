@@ -2,7 +2,9 @@ const i18nTranslation = {
   translations: {
     fr: {
       app: {
-        name: 'How long'
+        title: 'How long | Calcul de temps',
+        description: "Voyez l'écart se creuser entre le présent et une date de votre choix.",
+        keywords: 'application, temps, calcul, différence, gratuit, âge, année, mois, jour, heure, seconde, minute'
       },
       home: {
         description: {
@@ -41,7 +43,9 @@ const i18nTranslation = {
     },
     en: {
       app: {
-        name: 'How long'
+        title: 'How long | Time calculation',
+        description: "See the gap widen between the present and a date of your choice.",
+        keywords: 'application, time, calculation, difference, free, age, year, month, day, hour, second, minute'
       },
       home: {
         description: {

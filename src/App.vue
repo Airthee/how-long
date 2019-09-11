@@ -1,36 +1,12 @@
 <template>
   <div id="app" class="has-text-centered">
-    <section class="section">
-      <div class="container">
-        <div class="content">
-          <img class="home-logo" src="/logo.svg">
-          <h1>{{ $t('home.description.title') }}</h1>
-          <p v-html="$t('home.description.text')"></p>
-          <form-date/>
-        </div>
-      </div>
-    </section>
-    <footer class="footer">
-      <language-select/>
-      <span class="footer-link">
-        <a href="http://github.com/Airthee/how-long" target="_blank">
-          <img class="image is-32x32" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
-        </a>
-      </span>
-    </footer>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import FormDate from './components/FormDate.vue';
-import LanguageSelect from './components/LanguageSelect.vue';
-
 export default {
-  name: 'app',
-  components: {
-    FormDate,
-    LanguageSelect
-  }
+  name: 'app'
 }
 </script>
 
