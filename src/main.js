@@ -4,6 +4,8 @@ import VueI18n from 'vue-i18n';
 import Datetime from 'vue-datetime'
 import i18nTranslations from './i18n-translations';
 import Buefy from 'buefy';
+import VueRouter from 'vue-router';
+import router from './router';
 
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css'
@@ -12,6 +14,7 @@ import 'vue-datetime/dist/vue-datetime.css'
 Vue.use(Datetime);
 Vue.use(VueI18n);
 Vue.use(Buefy);
+Vue.use(VueRouter);
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
@@ -25,5 +28,6 @@ Vue.config.productionTip = false
 // Vue instance
 new Vue({
   i18n,
+  router,
   render: h => h(App),
 }).$mount('#app')
