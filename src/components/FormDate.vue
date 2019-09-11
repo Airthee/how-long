@@ -6,18 +6,14 @@
       <div class="current-time--time">{{ formattedTime(currDate) }}</div>
     </div>
 
-    <div class="date-form">
-      <div class="columns is-centered">
-        <div class="column is-5">
-          <datetime 
-            input-class="input-datetime input"
-            v-model="inputDateTimeValue" 
-            type="datetime" 
-            :auto="true" 
-            :flow="['year', 'date', 'time']"
-          ></datetime>
-        </div>
-      </div>
+    <div class="date-form" v-on:confirm="persistDataToLocalStorage">
+      <datetime 
+        input-class="input-datetime"
+        v-model="inputDateTimeValue" 
+        type="datetime" 
+        :auto="true" 
+        :flow="['year', 'date', 'time']" 
+      ></datetime>
     </div>
 
     <div class="diff-time">
