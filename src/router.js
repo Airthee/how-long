@@ -13,12 +13,24 @@ const routes = [
           content: app => app.$t('app.description')
         },
         {
+          property: 'og:description',
+          content: app => app.$t('app.description')
+        },
+        {
           name: 'title',
+          content: app => app.$t('app.title')
+        },
+        {
+          property: 'og:title',
           content: app => app.$t('app.title')
         },
         {
           name: 'keywords',
           content: app => app.$t('app.keywords')
+        },
+        {
+          property: 'og:locale',
+          content: app => app.$i18n.locale
         }
       ]
     }
