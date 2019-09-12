@@ -9,29 +9,50 @@
     <div class="date-form">
       <div class="columns is-centered">
         <div class="column is-5">
-          <datetime 
-            input-class="input-datetime input"
-            v-model="inputDateTimeValue" 
-            type="datetime" 
-            :auto="true" 
-            :flow="['year', 'date', 'time']"
-          ></datetime>
+          <table class="date-form--table">
+            <tr>
+              <td class="date-form--table--td-datetime">
+                <datetime 
+                  input-class="input-datetime input"
+                  v-model="inputDateTimeValue" 
+                  type="datetime" 
+                  :auto="true" 
+                  :flow="['year', 'date', 'time']"
+                ></datetime>
+              </td>
+              <td class="date-form--table--td-icon">
+                <button type="button" class="button" :title="$t('formDate.titleButtonReset')" @click="resetDate">
+                  <span class="icon">
+                    <i class="fas fa-redo"></i>
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
 
-    <div class="diff-time">
+    <div class="diff-time" v-if="displayDiffTime">
       <div class="diff-time--text">
         {{ $t('formDate.elapsedTime') }} : 
         <span class="diff-time--text-result">
-          <span v-if="diffTime.years > 0">{{ $tc('formDate.year', diffTime.years) }}</span>
-          <span v-if="diffTime.months > 0">{{ $tc('formDate.month', diffTime.months) }}</span>
-          <span v-if="diffTime.days > 0">{{ $tc('formDate.day', diffTime.days) }}</span>
-          <span v-if="diffTime.hours > 0">{{ $tc('formDate.hour', diffTime.hours) }}</span>
-          <span v-if="diffTime.minutes > 0">{{ $tc('formDate.minute', diffTime.minutes) }}</span>
-          <span v-if="diffTime.seconds > 0">{{ $tc('formDate.second', diffTime.seconds) }}</span>
+          <span v-if="diffTime.years || diffTime.months || diffTime.days || diffTime.hours || diffTime.minutes || diffTime.seconds">
+            <span v-if="diffTime.years > 0">{{ $tc('formDate.year', diffTime.years) }}</span>
+            <span v-if="diffTime.months > 0">{{ $tc('formDate.month', diffTime.months) }}</span>
+            <span v-if="diffTime.days > 0">{{ $tc('formDate.day', diffTime.days) }}</span>
+            <span v-if="diffTime.hours > 0">{{ $tc('formDate.hour', diffTime.hours) }}</span>
+            <span v-if="diffTime.minutes > 0">{{ $tc('formDate.minute', diffTime.minutes) }}</span>
+            <span v-if="diffTime.seconds > 0">{{ $tc('formDate.second', diffTime.seconds) }}</span>
+          </span>
+          <span v-else>
+            {{ $tc('formDate.second', diffTime.seconds) }}
+          </span>
         </span>.
       </div>
+    </div>
+    <div v-else>
+      {{ $t('formDate.loading') }}...
     </div>
   </div>
 </template>
@@ -47,6 +68,7 @@ export default {
     return {
       inputDateTimeValue: null,
       currDate: new Date(),
+      displayDiffTime: false,
     };
   },
   watch: {
@@ -65,6 +87,9 @@ export default {
     // Update currDate every seconds
     setInterval(() => {
       this.currDate = new Date();
+      if (!this.displayDiffTime) {
+        this.displayDiffTime = true;
+      }
     }, 1000);
 
     // Create style
@@ -160,6 +185,12 @@ export default {
         localStorage.removeItem('selectedDateTime');
       }
     },
+    resetDate() {
+      if (this.displayDiffTime) {
+        this.displayDiffTime = false;
+      }
+      this.inputDateTimeValue = (new Date()).toISOString();
+    }
   }
 };
 </script>
@@ -181,6 +212,31 @@ export default {
     input {
       text-align: center;
       width: 4em;
+    }
+
+    .date-form--table {
+      td {
+        border: none;
+      }
+
+      .date-form--table--td-datetime {
+        margin-right: 0;
+        padding-right: 0;
+   
+        input.vdatetime-input.input-datetime.input {
+          border-radius: 5px 0 0 5px !important;
+        }
+      }
+
+      .date-form--table--td-icon {
+        vertical-align: middle;
+        margin-left: 0;
+        padding-left: 0;
+
+        &>button:first-child {
+          border-radius: 0 5px 5px 0;
+        }
+      }
     }
   }
 
