@@ -1,12 +1,25 @@
 <template>
   <div id="app" class="has-text-centered">
-    <router-view></router-view>
+    <section class="section">
+      <router-view></router-view>
+    </section>
+    <footer class="footer">
+      <language-select/>
+      <span class="footer-link">
+        <a href="http://github.com/Airthee/how-long" target="_blank">
+          <img class="image is-32x32" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
+        </a>
+      </span>
+    </footer>
   </div>
 </template>
 
 <script>
+import LanguageSelect from '@/components/LanguageSelect';
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: { LanguageSelect }
 }
 </script>
 
@@ -29,7 +42,7 @@ export default {
       -moz-osx-font-smoothing: grayscale;
       color: $main-text-color;
 
-      section {
+      &>section:first-child {
         min-height: 100vh;
       }
     }
