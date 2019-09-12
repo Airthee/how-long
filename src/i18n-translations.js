@@ -19,6 +19,10 @@ const i18nTranslation = {
       },
       formDate: {
         loading: 'Chargement',
+        dateDescription: {
+          defaultValue: 'Pas de description',
+          title: 'Cliquer pour modifier la description',
+        },
         elapsedTime: 'Temps écoulé',
         year: '1 an | {n} ans',
         month: '{n} mois',
@@ -34,7 +38,13 @@ const i18nTranslation = {
           minute: 'Minute',
           second: 'Seconde'
         },
-        titleButtonReset: 'Réinitialiser la date'
+        titleButtonReset: 'Réinitialiser la date',
+        modaleEditionDescription: {
+          placeHolderInput: 'Entrer une description',
+          title: "Editer une description",
+          btnValidate: 'Valider',
+          btnCancel: 'Annuler'
+        }
       },
       footer: {
         githubTitle: 'Accéder au repo Github'
@@ -62,6 +72,10 @@ const i18nTranslation = {
       },
       formDate: {
         loading: 'Loading',
+        dateDescription: {
+          defaultValue: 'No description',
+          title: 'Clic to edit the description',
+        },
         elapsedTime: 'Elapsed time',
         year: '1 year | {n} years',
         month: 'month | {n} months',
@@ -77,7 +91,13 @@ const i18nTranslation = {
           minute: 'Minute',
           second: 'Second'
         },
-        titleButtonReset: 'Reset the date'
+        titleButtonReset: 'Reset the date',
+        modaleEditionDescription: {
+          placeHolderInput: 'Enter a description',
+          title: "Edit a description",
+          btnValidate: 'Validate',
+          btnCancel: 'Cancel'
+        }
       },
       footer: {
         githubTitle: 'Access to the Github repository'

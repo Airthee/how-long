@@ -8,7 +8,7 @@
 
     <div class="date-form">
       <div class="columns is-centered">
-        <div class="column is-5">
+        <div class="column is-8">
           <table class="date-form--table">
             <tr>
               <td class="date-form--table--td-datetime">
@@ -26,6 +26,11 @@
                     <i class="fas fa-redo"></i>
                   </span>
                 </button>
+              </td>
+              <td class="date-form--table--td-description">
+                <span :title="$t('formDate.dateDescription.title')" @click="showModalEditionDescription">
+                  {{ description ? description : $t('formDate.dateDescription.defaultValue') }}
+                </span>
               </td>
             </tr>
           </table>
@@ -54,34 +59,47 @@
     <div v-else>
       {{ $t('formDate.loading') }}...
     </div>
+
+    <modal-edit-description
+      :class="{'is-active': modalDescription.display}"
+      :fDescriptionValue="() => description"
+      @close="onModalEditDescriptionClose"
+      @validate="onModalEditDescriptionValidate"
+    ></modal-edit-description>
   </div>
 </template>
 
 <script>
 import { setInterval } from "timers";
+import ModalEditDescription from './ModalEditDescription';
 
 let initDate = new Date();
+let isResetDate = false;
 
 export default {
   name: "form-date",
+  components: { ModalEditDescription },
   data() {
     return {
-      inputDateTimeValue: null,
+      inputDateTimeValue: localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : (new Date()).toISOString(),
       currDate: new Date(),
       displayDiffTime: false,
+      description: localStorage.getItem('dateDescription'),
+      modalDescription: {
+        display: false,
+      }
     };
   },
   watch: {
-    inputDateTimeValue(newValue, oldValue) {
-      if (oldValue !== null) {
-        this.persistDataToLocalStorage();
+    inputDateTimeValue(newValue) {
+      if (isResetDate) {
+        isResetDate = false;
+      }
+      else {
+        // Persist date to localstorage
+        this.persistToLocalStorage('selectedDateTime', newValue ? JSON.stringify(newValue) : null);
       }
     }
-  },
-  created() {
-    // Affect value for datetime picker
-    // Retrive from localstorage or take current date
-    this.inputDateTimeValue = localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : (new Date()).toISOString();
   },
   mounted() {
     // Update currDate every seconds
@@ -176,20 +194,33 @@ export default {
     zeroPad(number, pad = 2) {
       return number.toString().padStart(pad, '0');
     },
-    persistDataToLocalStorage() {
-      // Persist date to localstorage
-      if (this.inputDateTimeValue) {
-        localStorage.setItem('selectedDateTime', JSON.stringify(this.inputDateTimeValue));
+    persistToLocalStorage(name, value) {
+      if (value) {
+        localStorage.setItem(name, value);
       }
       else {
-        localStorage.removeItem('selectedDateTime');
+        localStorage.removeItem(name)
       }
     },
     resetDate() {
       if (this.displayDiffTime) {
         this.displayDiffTime = false;
       }
+      isResetDate = true;
+      localStorage.removeItem('selectedDateTime');
+      localStorage.removeItem('dateDescription');
       this.inputDateTimeValue = (new Date()).toISOString();
+      this.description = null;
+    },
+    showModalEditionDescription() {
+      this.modalDescription.display = true;
+    },
+    onModalEditDescriptionClose() {
+      this.modalDescription.display = false;
+    },
+    onModalEditDescriptionValidate(value) {
+      this.description = value;
+      this.persistToLocalStorage('dateDescription', value);
     }
   }
 };
@@ -232,9 +263,22 @@ export default {
         vertical-align: middle;
         margin-left: 0;
         padding-left: 0;
+        margin-right: 0;
 
         &>button:first-child {
           border-radius: 0 5px 5px 0;
+        }
+      }
+
+
+      .date-form--table--td-description {
+        vertical-align: middle;
+        margin-left: 0;
+        padding-left: 0;
+        font-style: italic;
+
+        &>span:first-child {
+          cursor: pointer;
         }
       }
     }
