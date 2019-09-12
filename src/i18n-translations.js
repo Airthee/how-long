@@ -18,6 +18,7 @@ const i18nTranslation = {
         },
       },
       formDate: {
+        loading: 'Chargement',
         elapsedTime: 'Temps écoulé',
         year: '1 an | {n} ans',
         month: '{n} mois',
@@ -32,7 +33,8 @@ const i18nTranslation = {
           hour: 'Heure',
           minute: 'Minute',
           second: 'Seconde'
-        }
+        },
+        titleButtonReset: 'Réinitialiser la date'
       },
       footer: {
         githubTitle: 'Accéder au repo Github'
@@ -59,6 +61,7 @@ const i18nTranslation = {
         },
       },
       formDate: {
+        loading: 'Loading',
         elapsedTime: 'Elapsed time',
         year: '1 year | {n} years',
         month: 'month | {n} months',
@@ -73,7 +76,8 @@ const i18nTranslation = {
           hour: 'Hour',
           minute: 'Minute',
           second: 'Second'
-        }
+        },
+        titleButtonReset: 'Reset the date'
       },
       footer: {
         githubTitle: 'Access to the Github repository'
@@ -85,11 +89,11 @@ const i18nTranslation = {
   },
 
   getCurrentLang() {
-    return localStorage.lang || (window.navigator.userLanguage || window.navigator.language).split('-')[0];
+    return localStorage.getItem('lang') || (window.navigator.userLanguage || window.navigator.language).split('-')[0];
   },
 
   setLang(lang) {
-    localStorage.lang = lang;
+    localStorage.setItem('lang', lang);
     window.location.reload();
   }
 };
