@@ -248,6 +248,7 @@ export default {
     .date-form--table {
       td {
         border: none;
+        vertical-align: middle;
       }
 
       .date-form--table--td-datetime {
