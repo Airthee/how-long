@@ -1,10 +1,17 @@
 import VueRouter from 'vue-router';
 import Home from './components/Home';
+import i18nTranslations from '@/i18n-translations';
 
 const routes = [
   {
-    path: '/',
+    path: '/:lang?',
     component: Home,
+    beforeEnter: (to, from, next) => {
+      if (typeof to.params.lang !== 'undefined' && i18nTranslations.getCurrentLang() !== to.params.lang) {
+        i18nTranslations.setLang(to.params.lang);
+      }
+      next();
+    },
     meta: {
       title: app => app.$t('app.title'),
       metaTags: [
