@@ -42,7 +42,7 @@ export default {
   },
   watch: {
     selected(newVal) {
-      i18nTranslations.setLang(newVal);
+      window.location.href = `/${newVal}`;
     }
   }
 }

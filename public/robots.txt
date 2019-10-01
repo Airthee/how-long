@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://how-long.airthee.com/sitemap.xml

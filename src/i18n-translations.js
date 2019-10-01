@@ -113,8 +113,12 @@ const i18nTranslation = {
   },
 
   setLang(lang) {
-    localStorage.setItem('lang', lang);
-    window.location.reload();
+    if (Object.keys(this.translations).includes(lang)) {
+      localStorage.setItem('lang', lang);
+    }
+    else {
+      throw new Error(`Lang ${lang} not supported`);
+    }
   }
 };
 

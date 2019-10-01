@@ -1,10 +1,28 @@
 import VueRouter from 'vue-router';
 import Home from './components/Home';
+import FourOhFour from './components/FourOhFour';
+import i18nTranslations from '@/i18n-translations';
 
 const routes = [
   {
-    path: '/',
+    path: '/404',
+    component: FourOhFour
+  },
+  {
+    path: '/:lang?',
     component: Home,
+    beforeEnter: (to, from, next) => {
+      if (typeof to.params.lang !== 'undefined' && i18nTranslations.getCurrentLang() !== to.params.lang) {
+        try {
+          i18nTranslations.setLang(to.params.lang)
+          window.location.reload();
+        }
+        catch (error) {
+          next({path: '/404'});
+        }
+      }
+      next();
+    },
     meta: {
       title: app => app.$t('app.title'),
       metaTags: [
@@ -13,15 +31,31 @@ const routes = [
           content: app => app.$t('app.description')
         },
         {
+          property: 'og:description',
+          content: app => app.$t('app.description')
+        },
+        {
           name: 'title',
+          content: app => app.$t('app.title')
+        },
+        {
+          property: 'og:title',
           content: app => app.$t('app.title')
         },
         {
           name: 'keywords',
           content: app => app.$t('app.keywords')
+        },
+        {
+          property: 'og:locale',
+          content: app => app.$i18n.locale
         }
       ]
     }
+  },
+  {
+    path: '/*',
+    component: FourOhFour
   }
 ];
 
