@@ -1,0 +1,48 @@
+{
+    "app": {
+        "title": "How long | Time calculation",
+        "description": "See the gap widen between the present and a date of your choice.",
+        "keywords": "application, time, calculation, difference, free, age, year, month, day, hour, second, minute"
+    },
+    "home": {
+        "description": {
+            "title": "How long, what the hell is this ?",
+            "text": "You regularly forget your age or the age of a loved one ?<br>Need to know how long you have been with your partner ?<br>Add this website to your favourites and don't think anymore !<br>Just pick a date and see the difference grow instantly !<br>"
+        }
+    },
+    "formDate": {
+        "loading": "Loading",
+        "dateDescription": {
+            "defaultValue": "No description",
+            "title": "Clic to edit the description"
+        },
+        "elapsedTime": "Elapsed time",
+        "year": "1 year | {n} years",
+        "month": "month | {n} months",
+        "day": "1 day | {n} days",
+        "hour": "1 hour | {n} hours",
+        "minute": "1 minute | {n} minutes",
+        "second": "1 second | {n} seconds",
+        "inputTitles": {
+            "year": "Year",
+            "month": "Month",
+            "day": "Day",
+            "hour": "Hour",
+            "minute": "Minute",
+            "second": "Second"
+        },
+        "titleButtonReset": "Reset the date",
+        "modaleEditionDescription": {
+            "placeHolderInput": "Enter a description",
+            "title": "Edit a description",
+            "btnValidate": "Validate",
+            "btnCancel": "Cancel"
+        }
+    },
+    "footer": {
+        "githubTitle": "Access to the Github repository"
+    },
+    "words": {
+        "and": "and"
+    }
+}

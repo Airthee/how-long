@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 import Home from './components/Home';
 import FourOhFour from './components/FourOhFour';
-import i18nTranslations from '@/i18n-translations';
+import i18nTranslations from '@/plugins/translation/i18n-translations';
 
 const routes = [
   {
