@@ -1,0 +1,48 @@
+{
+    "app": {
+        "title": "How long | Calcul de temps",
+        "description": "Voyez l'écart se creuser entre le présent et une date de votre choix.",
+        "keywords": "application, temps, calcul, différence, gratuit, âge, année, mois, jour, heure, seconde, minute"
+    },
+    "home": {
+        "description": {
+            "title": "How long, qu'est ce que c'est ?",
+            "text": "Il vous arrive d'oublier votre âge ou celui d'un(e) proche ?<br>Besoin de savoir depuis combien de temps dure une relation ?<br>Ajoutez ce site à vos favoris et arrêtez de réfléchir !<br>Renseignez votre date et voyez la différence instantanément !"
+        }
+    },
+    "formDate": {
+        "loading": "Chargement",
+        "dateDescription": {
+            "defaultValue": "Pas de description",
+            "title": "Cliquer pour modifier la description"
+        },
+        "elapsedTime": "Temps écoulé",
+        "year": "1 an | {n} ans",
+        "month": "{n} mois",
+        "day": "1 jour | {n} jours",
+        "hour": "1 heure | {n} heures",
+        "minute": "1 minute | {n} minutes",
+        "second": "1 seconde | {n} secondes",
+        "inputTitles": {
+            "year": "Année",
+            "month": "Mois",
+            "day": "Jour",
+            "hour": "Heure",
+            "minute": "Minute",
+            "second": "Seconde"
+        },
+        "titleButtonReset": "Réinitialiser la date",
+        "modaleEditionDescription": {
+            "placeHolderInput": "Entrer une description",
+            "title": "Editer une description",
+            "btnValidate": "Valider",
+            "btnCancel": "Annuler"
+        }
+    },
+    "footer": {
+        "githubTitle": "Accéder au repo Github"
+    },
+    "words": {
+        "and": "et"
+    }
+}

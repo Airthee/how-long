@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import i18nTranslations from '@/i18n-translations';
+import i18nTranslations from '@/plugins/translation/i18n-translations';
 
 export default {
   name: 'language-select',

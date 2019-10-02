@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueI18n from 'vue-i18n';
 import Datetime from 'vue-datetime'
-import i18nTranslations from './i18n-translations';
+import i18nTranslations from '@/plugins/translation/i18n-translations';
 import Buefy from 'buefy';
 import VueRouter from 'vue-router';
 import router from './router';
