@@ -2,7 +2,7 @@
   <div>
     <div class="control is-small has-icons-left select">
       <div class="select">
-        <select v-model="selected">
+        <select v-model="selected" aria-label="Langage">
           <option 
             v-for="option in options" :key="option.value" 
             :value="option.value" 
