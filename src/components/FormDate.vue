@@ -13,6 +13,7 @@
             <tr>
               <td class="date-form--table--td-datetime">
                 <datetime 
+                  aria-label="Date"
                   input-class="input-datetime input"
                   v-model="inputDateTimeValue" 
                   type="datetime" 
