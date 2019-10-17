@@ -5,11 +5,11 @@
     </section>
     <footer class="footer">
       <language-select/>
-      <span class="footer-link">
+      <div class="footer-link">
         <a href="http://github.com/Airthee/how-long" target="_blank">
-          <img class="image is-32x32" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
+          <img class="image is-48x48" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
         </a>
-      </span>
+      </div>
     </footer>
   </div>
 </template>
@@ -49,6 +49,7 @@ export default {
 
     footer {
       .footer-link {
+        margin-top: 5px;
         img {
           display: inline-block;
         }
