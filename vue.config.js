@@ -1,3 +1,18 @@
+const SWPrecache = require('sw-precache-webpack-plugin');
+
 module.exports = {
-    // publicPath: 'how-old-are-you'
+    configureWebpack: {
+        plugins: [
+            new SWPrecache({
+                cacheId: 'how-long',
+                filepath: 'dist/service-worker.js',
+                staticFileGlobs: [
+                  'index.html',
+                  'manifest.json',
+                  'dist/*.{js,css}'
+                ],
+                stripPrefix: '/'
+              })
+        ]
+    }
 } 

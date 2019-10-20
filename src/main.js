@@ -10,6 +10,13 @@ import router from './router';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css'
 
+// Register service worker
+const prod = process.env.NODE_ENV === 'production'
+const shouldSW = 'serviceWorker' in navigator && prod
+if (shouldSW) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
+
 // Use I18N
 Vue.use(Datetime);
 Vue.use(VueI18n);
