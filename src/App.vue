@@ -6,7 +6,7 @@
     <footer class="footer">
       <language-select/>
       <div class="footer-link">
-        <a href="http://github.com/Airthee/how-long" target="_blank">
+        <a href="http://github.com/Airthee/how-long" target="_blank" rel="noopener">
           <img class="image is-48x48" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
         </a>
       </div>
