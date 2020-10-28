@@ -6,6 +6,7 @@ import i18nTranslations from '@/plugins/translation/i18n-translations';
 import Buefy from 'buefy';
 import VueRouter from 'vue-router';
 import router from './router';
+import VueSocialSharing from 'vue-social-sharing';
 
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css'
@@ -15,6 +16,7 @@ Vue.use(Datetime);
 Vue.use(VueI18n);
 Vue.use(Buefy);
 Vue.use(VueRouter);
+Vue.use(VueSocialSharing);
 
 // Create VueI18n instance with options
 const i18n = new VueI18n({
