@@ -1,6 +1,5 @@
 <template>
   <div class="social-container">
-    <h1>{{ $i18n.t("home.share") }}</h1>
     <div class="social-wrapper">
       <ShareNetwork
         v-for="network in networks"
@@ -96,6 +95,7 @@ export default {
 @include mobile {
   .social-container {
     display: block;
+    margin-top: 1rem;
   }
 
   .social-container {

@@ -8,8 +8,7 @@
         "description": {
             "title": "How long, qu'est ce que c'est ?",
             "text": "Il vous arrive d'oublier votre âge ou celui d'un(e) proche ?<br>Besoin de savoir depuis combien de temps dure une relation ?<br>Ajoutez ce site à vos favoris et arrêtez de réfléchir !<br>Renseignez votre date et voyez la différence instantanément !"
-        },
-        "share": "Partager"
+        }
     },
     "formDate": {
         "loading": "Chargement",
