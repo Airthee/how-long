@@ -8,7 +8,8 @@
         "description": {
             "title": "How long, what the hell is this ?",
             "text": "You regularly forget your age or the age of a loved one ?<br>Need to know how long you have been with your partner ?<br>Add this website to your favourites and don't think anymore !<br>Just pick a date and see the difference grow instantly !<br>"
-        }
+        },
+        "share": "Share on"
     },
     "formDate": {
         "loading": "Loading",
