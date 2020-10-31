@@ -10,16 +10,21 @@
           <img class="image is-48x48" src="@/assets/GitHub-Mark-Light-120px-plus.png" alt="Github LOGO" :title="$t('footer.githubTitle')">
         </a>
       </div>
+      <social-sharing-buttons />
     </footer>
   </div>
 </template>
 
 <script>
 import LanguageSelect from '@/components/LanguageSelect';
+import SocialSharingButtons from "@/components/SocialSharingButtons";
 
 export default {
   name: 'app',
-  components: { LanguageSelect }
+  components: { 
+    LanguageSelect,
+    SocialSharingButtons
+  }
 }
 </script>
 
