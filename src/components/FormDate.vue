@@ -125,7 +125,7 @@ export default Vue.extend({
         content: ' ${this.$t('words.and')} '
       }
     `;
-    document.querySelector('head')?.insertAdjacentElement('beforeend', style);
+    document.querySelector('head').insertAdjacentElement('beforeend', style);
   },
   computed: {
     selectedDate() {
