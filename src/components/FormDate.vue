@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="current-time">
       <div class="current-time--date">{{ formattedDate(currDate) }}</div>
       <div class="current-time--time">{{ formattedTime(currDate) }}</div>
@@ -12,12 +11,12 @@
           <table class="date-form--table">
             <tr>
               <td class="date-form--table--td-datetime">
-                <datetime 
+                <datetime
                   aria-label="Date"
                   input-class="input-datetime input"
-                  v-model="inputDateTimeValue" 
-                  type="datetime" 
-                  :auto="true" 
+                  v-model="inputDateTimeValue"
+                  type="datetime"
+                  :auto="true"
                   :flow="['year', 'date', 'time']"
                 ></datetime>
               </td>
@@ -41,9 +40,18 @@
 
     <div class="diff-time" v-if="displayDiffTime">
       <div class="diff-time--text">
-        {{ $t('formDate.elapsedTime') }} : 
+        {{ $t('formDate.elapsedTime') }} :
         <span class="diff-time--text-result">
-          <span v-if="diffTime.years || diffTime.months || diffTime.days || diffTime.hours || diffTime.minutes || diffTime.seconds">
+          <span
+            v-if="
+              diffTime.years ||
+                diffTime.months ||
+                diffTime.days ||
+                diffTime.hours ||
+                diffTime.minutes ||
+                diffTime.seconds
+            "
+          >
             <span v-if="diffTime.years > 0">{{ $tc('formDate.year', diffTime.years) }}</span>
             <span v-if="diffTime.months > 0">{{ $tc('formDate.month', diffTime.months) }}</span>
             <span v-if="diffTime.days > 0">{{ $tc('formDate.day', diffTime.days) }}</span>
@@ -53,16 +61,14 @@
           </span>
           <span v-else>
             {{ $tc('formDate.second', diffTime.seconds) }}
-          </span>
-        </span>.
+          </span> </span
+        >.
       </div>
     </div>
-    <div v-else>
-      {{ $t('formDate.loading') }}...
-    </div>
+    <div v-else>{{ $t('formDate.loading') }}...</div>
 
     <modal-edit-description
-      :class="{'is-active': modalDescription.display}"
+      :class="{ 'is-active': modalDescription.display }"
       :fDescriptionValue="() => description"
       @close="onModalEditDescriptionClose"
       @validate="onModalEditDescriptionValidate"
@@ -71,36 +77,37 @@
 </template>
 
 <script>
-import { setInterval } from "timers";
-import ModalEditDescription from './ModalEditDescription';
+import Vue from 'vue';
+import ModalEditDescription from './ModalEditDescription.vue';
+import localstorage from '../lib/localstorage.ts';
+import dateTimeFactoring from '../lib/dateTimeFactoring';
 
 let initDate = new Date();
 let isResetDate = false;
 
-export default {
-  name: "form-date",
+export default Vue.extend({
+  name: 'form-date',
   components: { ModalEditDescription },
   data() {
     return {
-      inputDateTimeValue: localStorage.hasOwnProperty('selectedDateTime') ? JSON.parse(localStorage.getItem('selectedDateTime')) : (new Date()).toISOString(),
+      inputDateTimeValue: localstorage.readJSON('selectedDateTime', new Date().toISOString()),
       currDate: new Date(),
       displayDiffTime: false,
-      description: localStorage.getItem('dateDescription'),
+      description: localstorage.read('dateDescription', ''),
       modalDescription: {
         display: false,
-      }
+      },
     };
   },
   watch: {
     inputDateTimeValue(newValue) {
       if (isResetDate) {
         isResetDate = false;
-      }
-      else {
+      } else {
         // Persist date to localstorage
-        this.persistToLocalStorage('selectedDateTime', newValue ? JSON.stringify(newValue) : null);
+        localstorage.write('selectedDateTime', newValue ? JSON.stringify(newValue) : null);
       }
-    }
+    },
   },
   mounted() {
     // Update currDate every seconds
@@ -118,19 +125,10 @@ export default {
         content: ' ${this.$t('words.and')} '
       }
     `;
-    document.querySelector('head').insertAdjacentElement('beforeend', style);
+    document.querySelector('head')?.insertAdjacentElement('beforeend', style);
   },
   computed: {
-    diffTime() {
-      const returnDiff = {
-        years: 0,
-        months: 0,
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-      };
-
+    selectedDate() {
       const inputDateTime = new Date(this.inputDateTimeValue);
       const selectedDate = new Date(
         inputDateTime.getFullYear() || initDate.getFullYear(),
@@ -138,70 +136,29 @@ export default {
         inputDateTime.getDate() || initDate.getDate(),
         inputDateTime.getHours() || initDate.getHours(),
         inputDateTime.getMinutes() || initDate.getMinutes(),
-        inputDateTime.getSeconds() || initDate.getSeconds(),
+        inputDateTime.getSeconds() || initDate.getSeconds()
       );
-
-      // Seconds
-      returnDiff.seconds += this.currDate.getSeconds() - selectedDate.getSeconds();
-      if (returnDiff.seconds < 0) {
-        returnDiff.seconds += 60;
-        returnDiff.minutes--;
-      }
-
-      // Minutes
-      returnDiff.minutes += this.currDate.getMinutes() - selectedDate.getMinutes();
-      if (returnDiff.minutes < 0) {
-        returnDiff.minutes += 60;
-        returnDiff.hours--;
-      }
-
-      // Hours
-      returnDiff.hours += this.currDate.getHours() - selectedDate.getHours();
-      if (returnDiff.hours < 0) {
-        returnDiff.hours += 24;
-        returnDiff.days--;
-      }
-
-      // Days
-      returnDiff.days += this.currDate.getDate() - selectedDate.getDate();
-      if (returnDiff.days < 0) {
-        returnDiff.days += 31;
-        returnDiff.months--;
-      }
-
-      // Months
-      returnDiff.months += this.currDate.getMonth() - selectedDate.getMonth();
-      if (returnDiff.months < 0) {
-        returnDiff.months += 12;
-        returnDiff.years--;
-      }
-
-      // Years
-      returnDiff.years += this.currDate.getFullYear() - selectedDate.getFullYear();
-      if (returnDiff.years < 0) {
-        returnDiff.years = 0;
-      }
-
-      return returnDiff;
+      return selectedDate;
+    },
+    diffTime() {
+      return dateTimeFactoring.factorizeDiff(this.currDate, this.selectedDate);
     },
   },
   methods: {
     formattedDate(date) {
-      return `${this.zeroPad(date.getDate())}/${this.zeroPad(date.getMonth() + 1)}/${date.getFullYear()}`;
+      const day = date.getDate();
+      const months = date.getMonth() + 1;
+      const years = date.getFullYear();
+      return [this.zeroPad(day), this.zeroPad(months), years].join('/');
     },
     formattedTime(date) {
-      return `${this.zeroPad(date.getHours())}:${this.zeroPad(date.getMinutes())}:${this.zeroPad(date.getSeconds())}`;
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+      return [this.zeroPad(hours), this.zeroPad(minutes), this.zeroPad(seconds)].join(':');
     },
     zeroPad(number, pad = 2) {
       return number.toString().padStart(pad, '0');
-    },
-    persistToLocalStorage(name, value) {
-      if (value) {
-        localStorage.setItem(name, value);
-      }
-      else {
-        localStorage.removeItem(name)
-      }
     },
     resetDate() {
       if (this.displayDiffTime) {
@@ -210,8 +167,8 @@ export default {
       isResetDate = true;
       localStorage.removeItem('selectedDateTime');
       localStorage.removeItem('dateDescription');
-      this.inputDateTimeValue = (new Date()).toISOString();
-      this.description = null;
+      this.inputDateTimeValue = new Date().toISOString();
+      this.description = '';
     },
     showModalEditionDescription() {
       this.modalDescription.display = true;
@@ -221,78 +178,79 @@ export default {
     },
     onModalEditDescriptionValidate(value) {
       this.description = value;
-      this.persistToLocalStorage('dateDescription', value);
-    }
-  }
-};
+      localstorage.write('dateDescription', value);
+    },
+  },
+});
 </script>
 
+<style lang="scss">
+.date-form--table--td-datetime input {
+  border-radius: 5px 0 0 5px;
+}
+</style>
+
 <style lang="scss" scoped>
-  .current-time {
-    width: 150px;
-    margin: auto;
-    border: 1px solid;
-    padding: 10px 0;
-    margin-bottom: 50px;
+.current-time {
+  width: 150px;
+  margin: auto;
+  border: 1px solid;
+  padding: 10px 0;
+  margin-bottom: 50px;
+}
+
+.date-form {
+  margin-bottom: 50px;
+  *:not(:last-child) {
+    margin-right: 10px;
+  }
+  input {
+    text-align: center;
+    width: 4em;
   }
 
-  .date-form {
-    margin-bottom: 50px;
-    *:not(:last-child) {
-      margin-right: 10px;
-    }
-    input {
-      text-align: center;
-      width: 4em;
+  .date-form--table {
+    td {
+      border: none;
+      vertical-align: middle;
     }
 
-    .date-form--table {
-      td {
-        border: none;
-        vertical-align: middle;
+    .date-form--table--td-datetime {
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .date-form--table--td-icon {
+      vertical-align: middle;
+      margin-left: 0;
+      padding-left: 0;
+      margin-right: 0;
+
+      & > button:first-child {
+        border-radius: 0 5px 5px 0;
       }
+    }
 
-      .date-form--table--td-datetime {
-        margin-right: 0;
-        padding-right: 0;
-   
-        input.vdatetime-input.input-datetime.input {
-          border-radius: 5px 0 0 5px !important;
-        }
-      }
+    .date-form--table--td-description {
+      vertical-align: middle;
+      margin-left: 0;
+      padding-left: 0;
+      font-style: italic;
 
-      .date-form--table--td-icon {
-        vertical-align: middle;
-        margin-left: 0;
-        padding-left: 0;
-        margin-right: 0;
-
-        &>button:first-child {
-          border-radius: 0 5px 5px 0;
-        }
-      }
-
-
-      .date-form--table--td-description {
-        vertical-align: middle;
-        margin-left: 0;
-        padding-left: 0;
-        font-style: italic;
-
-        &>span:first-child {
-          cursor: pointer;
-        }
+      & > span:first-child {
+        cursor: pointer;
       }
     }
   }
+}
 
-  .diff-time {
-    .diff-time--text {
-      .diff-time--text-result {
-        span:nth-child(n+2):not(:last-child)::before {
-          content: ', ';
-        }
+.diff-time {
+  .diff-time--text {
+    .diff-time--text-result {
+      span:nth-child(n + 2):not(:last-child)::before {
+        content: ', ';
       }
     }
   }
+}
 </style>
