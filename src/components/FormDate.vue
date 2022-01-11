@@ -45,11 +45,11 @@
           <span
             v-if="
               diffTime.years ||
-                diffTime.months ||
-                diffTime.days ||
-                diffTime.hours ||
-                diffTime.minutes ||
-                diffTime.seconds
+              diffTime.months ||
+              diffTime.days ||
+              diffTime.hours ||
+              diffTime.minutes ||
+              diffTime.seconds
             "
           >
             <span v-if="diffTime.years > 0">{{ $tc('formDate.year', diffTime.years) }}</span>
@@ -90,7 +90,7 @@ export default Vue.extend({
   components: { ModalEditDescription },
   data() {
     return {
-      inputDateTimeValue: localstorage.readJSON('selectedDateTime', new Date().toISOString()),
+      inputDateTimeValue: localstorage.read('selectedDateTime', new Date().toISOString()),
       currDate: new Date(),
       displayDiffTime: false,
       description: localstorage.read('dateDescription', ''),
@@ -105,7 +105,7 @@ export default Vue.extend({
         isResetDate = false;
       } else {
         // Persist date to localstorage
-        localstorage.write('selectedDateTime', newValue ? JSON.stringify(newValue) : null);
+        localstorage.write('selectedDateTime', newValue?.toString() || null);
       }
     },
   },
